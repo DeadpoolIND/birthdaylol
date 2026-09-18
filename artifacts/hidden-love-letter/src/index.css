@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@400&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  --background: 0 0% 0%;
+  --foreground: 42 36% 91%;
+  --letter: #f2efe6;
+  --quiet: rgba(242, 239, 230, 0.42);
+  --quiet-faint: rgba(242, 239, 230, 0.12);
+  --app-font-serif: 'Cormorant Garamond', Georgia, serif;
+  --app-font-mono: 'DM Mono', monospace;
+  --app-font-sans: 'DM Mono', monospace;
+  --radius: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #000;
+  color-scheme: dark;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: #000;
+  color: var(--letter);
+  font-family: var(--app-font-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+.love-letter {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  background: #000;
+  cursor: default;
+  touch-action: none;
+  user-select: none;
+}
+
+.love-letter.reading {
+  touch-action: pan-y;
+  user-select: text;
+}
+
+.instruction {
+  position: fixed;
+  z-index: 2;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  margin: 0;
+  color: var(--quiet);
+  font-family: var(--app-font-mono);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-align: center;
+  text-transform: lowercase;
+  transition: opacity 900ms ease;
+}
+
+.instruction-hidden {
+  opacity: 0;
+}
+
+.opening-title {
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  color: var(--letter);
+  font-family: var(--app-font-serif);
+  font-size: clamp(3.2rem, 9vw, 8.25rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  transition:
+    top 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    left 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    font-size 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 500ms ease;
+}
+
+.love-letter.moving .opening-title,
+.love-letter.reading .opening-title {
+  top: 4.5rem;
+  left: clamp(1.25rem, 8vw, 10rem);
+  font-size: clamp(1.9rem, 3.5vw, 3.55rem);
+  letter-spacing: -0.025em;
+  text-align: left;
+  transform: translate(0, 0);
+}
+
+.love-letter.reading .opening-title {
+  top: clamp(3rem, 8vw, 7.5rem);
+}
+
+.revealed-character {
+  display: inline;
+  animation: character-arrives 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.letter-copy {
+  width: min(100% - 2.5rem, 68rem);
+  margin: 0 auto;
+  padding-top: clamp(10rem, 20vw, 15rem);
+  padding-bottom: 12rem;
+  color: var(--letter);
+  font-family: var(--app-font-serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.42rem);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.72;
+  white-space: pre-wrap;
+}
+
+.letter-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.65fr);
+  gap: clamp(2.5rem, 8vw, 8rem);
+  align-items: center;
+  min-height: min(70vh, 42rem);
+  margin-bottom: clamp(7rem, 15vw, 13rem);
+}
+
+.section-copy {
+  max-width: 34rem;
+}
+
+.paragraph-1 .section-copy {
+  grid-column: 1;
+}
+
+.paragraph-1 .photo-slot {
+  grid-column: 2;
+}
+
+.paragraph-2 .section-copy {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.paragraph-2 .photo-slot {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.paragraph-3 .section-copy {
+  grid-column: 1 / -1;
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.photo-slot {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #000;
+}
+
+.photo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.photo-reveal {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(1.25rem) scale(0.97);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 700ms;
+}
+
+.photo-reveal.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
+}
+
+.photo-placeholder {
+  background: rgba(242, 239, 230, 0.035);
+  color: var(--quiet-faint);
+  font-family: var(--app-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: lowercase;
+}
+
+.letter-ending {
+  display: flex;
+  justify-content: center;
+  min-height: min(46vh, 32rem);
+  padding: 5rem 0 8rem;
+  color: var(--letter);
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.birthday-screen {
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1200ms ease;
+}
+
+.finale-visible .birthday-screen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.birthday-message {
+  margin: 0;
+  color: var(--letter);
+  font-family: var(--app-font-serif);
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-align: center;
+}
+
+@keyframes character-arrives {
+  from {
+    opacity: 0;
+    transform: translateY(0.24em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 700px) {
+  .instruction {
+    bottom: 1.7rem;
+  }
+
+  .letter-copy {
+    width: min(100% - 4rem, 68rem);
+  }
+}
+
+@media (max-width: 699px) {
+  .letter-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.5rem;
+    min-height: auto;
+    margin-bottom: 8rem;
+  }
+
+  .section-copy {
+    max-width: none;
+  }
+
+  .photo-slot {
+    width: min(72vw, 20rem);
+    align-self: flex-end;
+  }
+
+  .paragraph-3 .section-copy {
+    max-width: none;
+  }
+
+  .paragraph-2 .section-copy {
+    order: 1;
+  }
+
+  .paragraph-2 .photo-slot {
+    order: 2;
+    align-self: flex-start;
+  }
+
+  .letter-ending {
+    min-height: 36vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-title,
+  .instruction,
+  .birthday-screen {
+    transition-duration: 1ms;
+  }
+
+  .revealed-character {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+}

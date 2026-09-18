@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Hidden Love Letter"
+description = "A minimal cinematic interactive love letter that reveals one predetermined character per keyboard press or tap, beginning with an oversized opening title that transitions into a readable letter."
+version = "1.0.0"
+id = "artifacts/hidden-love-letter"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21930
+
+[services.development]
+run = "pnpm --filter @workspace/hidden-love-letter run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hidden-love-letter", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/hidden-love-letter/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21930"
+BASE_PATH = "/"
