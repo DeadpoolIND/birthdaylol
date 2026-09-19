@@ -12,7 +12,7 @@ export const LETTER = {
   greeting: 'Dear Haritha,',
   paragraphs: [
     {
-      text: 'There are things I have carried quietly, not because they were small, but because they mattered too much to place in ordinary conversation.',
+      text: 'There are some things that we keep quiet about. Secrets, stories, sometimes the sadness in our hearts. Not because we want to, but because we sometimes dont find the words to say or the person to say it to. For me however, I was lucky enough to find you. The one and only for me. The one person who knows me from head to, inside out. The only one to have figured me out to a tee. The moon in my night sky, the love of my life, Haritha.',
       photo: {
         src: '/images/image1.jpeg',
         alt: 'A memory waiting for its photograph',
