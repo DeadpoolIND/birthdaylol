@@ -14,7 +14,7 @@ export const LETTER = {
     {
       text: 'There are things I have carried quietly, not because they were small, but because they mattered too much to place in ordinary conversation.',
       photo: {
-        src: '',
+        src: '/images/image1.jpeg',
         alt: 'A memory waiting for its photograph',
         label: 'photo one',
       },
@@ -22,7 +22,7 @@ export const LETTER = {
     {
       text: 'Somewhere between the first familiar silence and the last light in the evening, you became part of the way I notice the world. A song lingers longer. Rain feels like an invitation. Even the quiet has a name now.',
       photo: {
-        src: '',
+        src: '/images/image2.jpeg',
         alt: 'A second memory waiting for its photograph',
         label: 'photo two',
       },
