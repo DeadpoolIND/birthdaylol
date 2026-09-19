@@ -20,7 +20,7 @@ export const LETTER = {
       },
     },
     {
-      text: 'Every second of my life im wishing I was right by your side, holding your hand, keeping you close. Life would be warm, happy, pleasant for a change. And it's always because I have you to wake up to.',
+      text: 'Every second of my life im wishing I was right by your side, holding your hand, keeping you close. Life would be warm, happy, pleasant for a change. And it\'s always because I have you to wake up to.',
       photo: {
         src: '/images/image2.jpeg',
         alt: 'A second memory waiting for its photograph',
@@ -28,7 +28,7 @@ export const LETTER = {
       },
     },
     {
-      text: 'I hear only you in my songs, I see only you on couple reels in insta, I want only you by my side. Forever. You are my everything. I wish I was there with you even now. One day, we'll be together, living life together, day by day, month by month, year by year. I wish it would come sooner but im willing to wait 10 lifetimes if I have to. You are worth it, you are worth everything.',
+      text: 'I hear only you in my songs, I see only you on couple reels in insta, I want only you by my side. Forever. You are my everything. I wish I was there with you even now. One day, we\'ll be together, living life together, day by day, month by month, year by year. I wish it would come sooner but im willing to wait 10 lifetimes if I have to. You are worth it, you are worth everything.',
     },
   ],
   ending: 'With all of that being said',
