@@ -60,7 +60,28 @@ function getSectionProgress(revealedCount: number, sectionIndex: number) {
 function countWords(text: string) {
   return text.trim() ? text.trim().split(/\s+/).length : 0;
 }
-
+function getNextRevealSize(revealedCount: number) {
+  // Keep "Dear Haritha," character-by-character
+  if (revealedCount < TITLE_LENGTH) {
+    return 1;
+  }
+  let sectionStart = 0;
+  for (const section of REVEAL_PARTS) {
+    const sectionEnd = sectionStart + section.length;
+    if (revealedCount < sectionEnd) {
+      const positionInsideSection = revealedCount - sectionStart;
+      const nextSpace = section.indexOf(' ', positionInsideSection);
+      const nextWordEnd =
+        nextSpace === -1 ? section.length : nextSpace + 1;
+      return Math.max(
+        1,
+        nextWordEnd - positionInsideSection,
+      );
+    }
+    sectionStart = sectionEnd;
+  }
+  return 0;
+}
 function CharacterText({
   text,
   offset,
@@ -144,7 +165,9 @@ function App() {
       revealLock.current = false;
     }, REVEAL_DELAY);
 
-    setRevealedCount((current) => Math.min(current + 1, totalRevealLength));
+    const revealAmount = getNextRevealSize(revealedCount);
+    setRevealedCount((current) =>
+      Math.min(current + revealAmount, totalRevealLength),);
   }, [phase, revealedCount, showBirthday, totalRevealLength]);
 
   useEffect(() => {
